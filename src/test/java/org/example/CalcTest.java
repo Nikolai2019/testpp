@@ -30,7 +30,6 @@ class CalcTest {
 
     @Test
     @DisplayName("01 Проверка суммирования")
-    @Timeout(10)
     @Tag("summ")
     void summ1() {
         Calc calc = new Calc();
@@ -38,22 +37,32 @@ class CalcTest {
         Assertions.assertEquals(7, calcResult, "Не тот ответ");
     }
 
-    @Test
-    @DisplayName("02 Проверка суммирования")
-    @Timeout(10)
-    void summ2() {
-        Calc calc = new Calc();
-        int calcResult = calc.summ(1, 6);
-        Assertions.assertEquals(7, calcResult, "Не тот ответ");
-    }
-
-    @ParameterizedTest(name="#{index} - сложение{0} и {1}, ожидаем {2}")
-    @DisplayName("03 Параметризованный тест суммы")
-    @Tag("param")
+    @ParameterizedTest(name = "#{index} - сложение{0} и {1}, ожидаем {2}")
+    @DisplayName("02 Параметризованный тест суммы")
+    @Tag("summ")
     @CsvSource({"1, 2, 3", "-1, 2, 1", "0,0,0"})
     void summ3(int a, int b, int expectedResult) {
         Calc calc = new Calc();
         int calcResult = calc.summ(a, b);
+        Assertions.assertEquals(expectedResult, calcResult, "Не тот ответ");
+    }
+
+    @Test
+    @DisplayName("03 Проверка вычитания")
+    @Tag("remove")
+    void remove1() {
+        Calc calc = new Calc();
+        int calcResult = calc.remove(7, 2);
+        Assertions.assertEquals(5, calcResult, "Не тот ответ");
+    }
+
+    @ParameterizedTest(name = "#{index} - разница {0} и {1}, ожидаем {2}")
+    @DisplayName("04 Параметризованный тест вычитания")
+    @Tag("remove")
+    @CsvSource({"2, 1, 1", "-1, -1, 0", "0,0,0"})
+    void remove2(int a, int b, int expectedResult) {
+        Calc calc = new Calc();
+        int calcResult = calc.remove(a, b);
         Assertions.assertEquals(expectedResult, calcResult, "Не тот ответ");
     }
 }
